@@ -6,7 +6,7 @@ Ce résumé est à vocation d'usage personnel. Son but initial est simplement de
 ## HTTP c'est quoi ?
 Le protocole HTTP (Hypertext Transfer Protocol) est un protocole crée pour le [**World Wide Web**](#World-wide-web). Ce protocol se veut rapide et léger et necessite une relation client/server
 
-## HTTP url format
+## Format d'un url HTTP
 ```
 http://<host>[":"port][path]
 
@@ -17,6 +17,19 @@ path : URI, si il n'est pas spécifié alors ce sera '/'
 "" : Contenue literal.
 ```
 
+## La gestion des dates
+En http1.0 plusieurs format de date sont disponible. Je vous laisse donc en prendre connaissance si cette partie vous interesse.
+Format :
+```
+- rfc1123-date
+- rfc850-date
+- asctime-date
+```
+
+## Format d'une requete HTTP
+```
+<Commande> <URL> <Version>
+```
 ## BONUS
 
 ### World Wide Web
