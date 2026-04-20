@@ -12,4 +12,4 @@ Le protocole HTTP (Hypertext Transfer Protocol) est un protocole créee pour le 
 
 ### World Wide Web
 Inventé par **Tim Berners-Lee**, ce projet avait pour but de permettre au chercheurs du monde entier de s'échanger des informations instantanément.
-Le **30 avril 1993** le **CERN** mis l'application W3 libre d'acces. Ce fus donc les debuts du web. W3 (http://info.cern.ch/hypertext/WWW/TheProject.html)
+Le **30 avril 1993** le **CERN** mis l'application W3 libre d'acces. Ce fus donc les debuts du web. [W3](http://info.cern.ch/hypertext/WWW/TheProject.html)
