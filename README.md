@@ -34,7 +34,7 @@ Les trois formats officiels sont :
 Une table de caractères représente la façon dont les octets sont convertis en caractères lisibles pour l'humain.
 Pour définir ce paramètre dans un en-tête `Content-Type`, on utilise :
 
-```http
+```
 Content-Type: text/html; charset=<table>
 ```
 
@@ -44,7 +44,7 @@ Il existe un grand nombre de tables différentes. Exemples courants : *US-ASCII,
 
 Pour spécifier si un contenu a été modifié par un système de compression (pour voyager plus vite) et préciser lequel, on utilise l'en-tête `Content-Encoding` :
 
-```http
+```
 Content-Encoding: "x-gzip" | "x-compress" | transformation
 ```
 
@@ -54,7 +54,7 @@ Content-Encoding: "x-gzip" | "x-compress" | transformation
 
 Une requête simple (méthode de la ligne de commande) se structure ainsi :
 
-```http
+```
 <Méthode> <URL> <Version>
 ```
 
