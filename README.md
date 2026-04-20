@@ -4,7 +4,7 @@
 Ce résumé est à vocation d'usage personnel. Son but initial est simplement de m'aider à retenir les informations essentielles concernant le protocole HTTP.
 
 ## HTTP c'est quoi ?
-Le protocole HTTP (Hypertext Transfer Protocol) est un protocole crée pour le [**World Wide Web**](#World-wide-web). Ce protocol ce veux rapide et léger et necessite une relation client/server
+Le protocole HTTP (Hypertext Transfer Protocol) est un protocole crée pour le [**World Wide Web**](#World-wide-web). Ce protocol se veut rapide et léger et necessite une relation client/server
 
 ## HTTP url format
 ```
