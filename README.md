@@ -2,7 +2,7 @@
 
 ## Description
 
-Ce résumé est à vocation d'usage personnel. Son but initial est de m'aider à retenir les informations essentielles concernant le protocole HTTP.
+Ce résumé est à vocation d'usage personnel. Son but initial est de m'aider à retenir les informations essentielles concernant le protocole HTTP visant a la réalisation de mon projet WebServ. Ce n'est donc pas complet.
 
 ## HTTP, c'est quoi ?
 
@@ -61,6 +61,13 @@ Une requête simple (méthode de la ligne de commande) se structure ainsi :
 Exemple : `GET /index.html HTTP/1.0`
 
 -----
+
+## Les methodes
+```
+GET : Demande au server des données. Ne l'utiliser que pour la récuperation de données.
+POST : Permet l'envoie de données au server permetant son changement d'état. Par exemple lors d'un envoie de formulaire.
+DELETE : Demande au server de supprimer une ressource donnée. Une quete DELETE ne doit pas contenir de corp et permet *uniquement* de supprimer des données
+```
 
 ## BONUS
 
