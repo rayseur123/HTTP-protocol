@@ -10,7 +10,7 @@ Le protocole HTTP (**Hypertext Transfer Protocol**) est un protocole créé pour
 
 ## Format d'une URL HTTP
 
-```http
+```
 http://<host>[":"port][path]
 
 host : Un nom de domaine internet ou une adresse IP valide.
