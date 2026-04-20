@@ -50,15 +50,27 @@ Content-Encoding: "x-gzip" | "x-compress" | transformation
 
 *Note : Le client annonce ce qu'il supporte via l'en-tête `Accept-Encoding`.*
 
-## Format d'une requête HTTP
-
-Une requête simple (méthode de la ligne de commande) se structure ainsi :
-
+## Format d'une message HTTP
 ```
 <Méthode> <URL> <Version>
+<BODY>
+```
+Exemple : `GET /index.html HTTP/1.0`
+
+## Format d'une requête HTTP minimal
+```
+POST /cgi/wp-admin.php HTTP/1.0
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 13
 ```
 
-Exemple : `GET /index.html HTTP/1.0`
+## Format d'une réponse HTTP minimal
+```
+HTTP/1.0 200 OK
+Content-Lenght: 31921
+Content-Type: text/html
+<!DOCTYPE html...
+```
 
 -----
 
