@@ -77,7 +77,7 @@ Spécifie si le contenu a été compressé et précise l'algorithme utilisé.
 Content-Encoding: gzip
 ```
 
-## Content-Type / Charset (OBLIGATOIRE si corps présent)
+## Content-Type (OBLIGATOIRE si corps présent) / Charset (Parametre optionnel)
 Définit l'encodage utilisé dans le corps de la réponse et le type de média.
 ```http
 Content-Type: text/html; charset=utf-8
