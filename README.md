@@ -40,7 +40,7 @@ Si votre requête vise à recevoir une image, il y a peu d'intérêt à accepter
 ```http
 Accept: text/html, image/png
 ```
-*Note : Si aucun en-tête `Accept` n'est présent, le serveur suppose que tout format est acceptable (`*/*`).*
+*Note : Si aucun en-tête `Accept` n'est présent, le serveur suppose que tout format est acceptable.*
 
 ## Accept-Charset
 Ce champ permet de spécifier les tables de caractères (jeux d'encodage) acceptées pour la réponse.
@@ -56,7 +56,7 @@ On parle d'encodage lorsque le contenu est transformé par un algorithme (ex: Gz
 ```http
 Accept-Encoding: compress, gzip
 ```
-Si cet en-tête est absent, le serveur considère qu'aucun encodage de compression n'est requis, bien qu'il puisse techniquement en proposer.
+Si cet en-tête est absent, le serveur **PEUT** supposer que le client acceptera tout codage de contenu.
 
 ## Accept-Language
 Ce champ permet de préciser les langages *naturels* (humains) acceptés pour la réponse.
