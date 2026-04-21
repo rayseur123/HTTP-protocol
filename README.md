@@ -95,7 +95,7 @@ Précise la taille du contenu envoyé sous forme d'octets.
 Content-Length: 600
 ```
 
-## Date (OBLIGATOIRE en réponse)
+## Date (Fortement conseillé en réponse)
 Précise la date et l'heure du message.
 ```http
 Date: Tue, 15 Nov 1994 08:12:31 GMT
