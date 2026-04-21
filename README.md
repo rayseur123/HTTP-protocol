@@ -32,7 +32,7 @@ En HTTP/1.1, le format RFC 1123 est privilégié, mais pour assurer la compatibi
 
 ---
 
-# Les champs d'en-tête d'une requête (HTTP/1.1)
+# Les champs d'en-tête d'une requête (HTTP/1.1 | 1.0)
 
 ## Accept
 Ce champ permet de spécifier quels formats de fichiers sont acceptables pour la réponse. Il est utile pour limiter les formats acceptés à un ensemble précis.
@@ -40,7 +40,7 @@ Si votre requête vise à recevoir une image, il y a peu d'intérêt à accepter
 ```http
 Accept: text/html, image/png
 ```
-*Note : Si aucun en-tête `Accept` n'est présent, le serveur suppose que tout format est acceptable.*
+*Note : Si aucun en-tête `Accept` n'est présent, le serveur suppose que tout format est acceptable. (`*/*`)*
 
 ## Accept-Charset
 Ce champ permet de spécifier les tables de caractères (jeux d'encodage) acceptées pour la réponse.
@@ -66,19 +66,6 @@ Accept-Language: da, en-gb;q=0.8, en;q=0.7
 ```
 Si aucun en-tête n'est précisé, le serveur **DEVRAIT** considérer que tous les langages sont acceptables, mais servira généralement sa langue par défaut.
 
-## Accept-Ranges
-Ce champ de **réponse** permet au serveur d'indiquer qu'il supporte les requêtes partielles (demande d'un morceau de fichier en octets).
-```http
-Accept-Ranges: bytes
-```
-Si le serveur n'accepte pas ce mode, il peut spécifier `Accept-Ranges: none`. Cela indique au client qu'il ne peut pas demander seulement une partie du fichier (utile pour le "resume" de téléchargement).
-
-## Age
-Ce champ est un outil pour indiquer au `user` l'ancienneté de la page envoyé. Si celle ci deviens trop vielle le navigateur peut alors demander une page a jour.
-```
-Age: 600
-```
-
 ## Allow
 Ce champ permet d'indiquer les methodes possibles sur une URL precise. 
 Elle est obligatoire en HTTP1.1 dans le cas d'une erreur 405(*Method Not Allowed*).
@@ -86,19 +73,17 @@ Elle est obligatoire en HTTP1.1 dans le cas d'une erreur 405(*Method Not Allowed
 Allow: GET, POST
 ```
 
-
-
----
-
-# Manipulation du contenu
-
-## Content-Type / Les tables de caractères (Charset)
-
-Pour définir l'encodage utilisé dans le corps de la réponse afin que le client puisse l'afficher correctement :
-```http
-Content-Type: text/html; charset=utf-8
+## Authorization
+Ce champ permet de gerer l'autentification en specifiant les user + le mot de passe pour ce connecter a une page potentiellement securisé.
 ```
-*Exemples courants : US-ASCII, ISO-8859-1 (Latin-1), UTF-8.*
+Authorization: Basic YWRtaW46MTIzNA==
+```
+
+## WWW-Authenticate
+Ce champ doit etre inclue dans une erreur `401 (non autorisé)` pour indiquer a l'utilisateur qu'il est necessaire de preciser des identifiant pour se connecter a cette page.
+```
+WWW-Authenticate: Basic realm="WallyWorld"
+```
 
 ## Content-Encoding (Compression)
 
@@ -110,34 +95,27 @@ Content-Encoding: gzip
 
 ---
 
-# Formats des messages
+## Content-Type / Les tables de caractères (Charset)
 
-## Structure générale
-```text
-<Méthode> <URL> <Version>
-<En-têtes>
-(Ligne vide)
-<Corps du message (Optionnel)>
-```
-
-## Exemple de requête minimale
+Pour définir l'encodage utilisé dans le corps de la réponse afin que le client puisse l'afficher correctement :
 ```http
-POST /cgi/admin.php HTTP/1.1
-Host: localhost
-Content-Type: application/x-www-form-urlencoded
-Content-Length: 13
+Content-Type: text/html; charset=utf-8
+```
+*Exemples courants : US-ASCII, ISO-8859-1 (Latin-1), UTF-8.*
 
-user=admin&pw=123
+## Content-Language
+Permet d'indiquer qui est le public cible du contenue. Par exemple si le contenue est a destination des francais ou des allemand.
+```
+Content-Language: da
 ```
 
-## Exemple de réponse minimale
-```http
-HTTP/1.1 200 OK
-Content-Length: 42
-Content-Type: text/html
-
-<html><body><h1>Hello World</h1></body></html>
+## Content-Length
+Permet de preciser la taille du contenue envoyer sous forme d'octets.
+Ce champ est obligatoire.
 ```
+Content-Length: 600
+```
+
 
 ---
 
