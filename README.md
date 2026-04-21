@@ -73,6 +73,21 @@ Accept-Ranges: bytes
 ```
 Si le serveur n'accepte pas ce mode, il peut spécifier `Accept-Ranges: none`. Cela indique au client qu'il ne peut pas demander seulement une partie du fichier (utile pour le "resume" de téléchargement).
 
+## Age
+Ce champ est un outil pour indiquer au `user` l'ancienneté de la page envoyé. Si celle ci deviens trop vielle le navigateur peut alors demander une page a jour.
+```
+Age: 600
+```
+
+## Allow
+Ce champ permet d'indiquer les methodes possibles sur une URL precise. 
+Elle est obligatoire en HTTP1.1 dans le cas d'une erreur 405(*Method Not Allowed*).
+```
+Allow: GET, POST
+```
+
+
+
 ---
 
 # Manipulation du contenu
