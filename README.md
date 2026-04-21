@@ -1,8 +1,10 @@
+---
+
 # HTTP-protocole
 
 ## Description
 
-Ce résumé est à vocation d'usage personnel. Son but initial est de m'aider à retenir les informations essentielles concernant le protocole HTTP visant a la réalisation de mon projet WebServ. Ce n'est donc pas complet.
+Ce résumé est à vocation d'usage personnel. Son but initial est de m'aider à retenir les informations essentielles concernant le protocole HTTP visant à la réalisation de mon projet **WebServ**. Ce n'est donc pas complet.
 
 ## HTTP, c'est quoi ?
 
@@ -10,7 +12,7 @@ Le protocole HTTP (**Hypertext Transfer Protocol**) est un protocole créé pour
 
 ## Format d'une URL HTTP
 
-```
+```text
 http://<host>[":"port][path]
 
 host : Un nom de domaine internet ou une adresse IP valide.
@@ -22,69 +24,117 @@ path : URI de la ressource. S'il n'est pas spécifié, la valeur par défaut est
 
 ## Les formats de temps et de date
 
-En HTTP/1.0, plusieurs formats de date sont acceptés pour assurer la compatibilité entre les systèmes.
-Les trois formats officiels sont :
+En HTTP/1.1, le format RFC 1123 est privilégié, mais pour assurer la compatibilité, trois formats sont historiquement acceptés :
 
-  - **RFC 1123** (le standard recommandé) : `Sun, 06 Nov 1994 08:49:37 GMT`
-  - **RFC 850** (obsolète) : `Sunday, 06-Nov-94 08:49:37 GMT`
-  - **asctime** (format C de Unix) : `Sun Nov  6 08:49:37 1994`
+* **RFC 1123** (le standard recommandé) : `Sun, 06 Nov 1994 08:49:37 GMT`
+* **RFC 850** (obsolète) : `Sunday, 06-Nov-94 08:49:37 GMT`
+* **asctime** (format C de Unix) : `Sun Nov  6 08:49:37 1994`
 
-## Les tables de caractères (Charset)
+---
 
-Une table de caractères représente la façon dont les octets sont convertis en caractères lisibles pour l'humain.
-Pour définir ce paramètre dans un en-tête `Content-Type`, on utilise :
+# Les champs d'en-tête d'une requête (HTTP/1.1)
 
+## Accept
+Ce champ permet de spécifier quels formats de fichiers sont acceptables pour la réponse. Il est utile pour limiter les formats acceptés à un ensemble précis.
+Si votre requête vise à recevoir une image, il y a peu d'intérêt à accepter du `text/html`.
+```http
+Accept: text/html, image/png
 ```
-Content-Type: text/html; charset=<table>
+*Note : Si aucun en-tête `Accept` n'est présent, le serveur suppose que tout format est acceptable (`*/*`).*
+
+## Accept-Charset
+Ce champ permet de spécifier les tables de caractères (jeux d'encodage) acceptées pour la réponse.
+Une table de caractères représente la façon dont les octets sont convertis en caractères lisibles par l'humain.
+```http
+Accept-Charset: iso-8859-5, utf-8
 ```
+Si cet en-tête est absent, le serveur **PEUT** estimer que toutes les tables sont acceptées.
 
-Il existe un grand nombre de tables différentes. Exemples courants : *US-ASCII, ISO-8859-1 (Latin-1), UTF-8*.
-
-## Encodage du contenu (Compression)
-
-Pour spécifier si un contenu a été modifié par un système de compression (pour voyager plus vite) et préciser lequel, on utilise l'en-tête `Content-Encoding` :
-
+## Accept-Encoding
+Ce champ permet de spécifier les types de compression acceptés pour la réponse (le transfert).
+On parle d'encodage lorsque le contenu est transformé par un algorithme (ex: Gzip) pour réduire sa taille.
+```http
+Accept-Encoding: compress, gzip
 ```
-Content-Encoding: "x-gzip" | "x-compress" | transformation
-```
+Si cet en-tête est absent, le serveur considère qu'aucun encodage de compression n'est requis, bien qu'il puisse techniquement en proposer.
 
+## Accept-Language
+Ce champ permet de préciser les langages *naturels* (humains) acceptés pour la réponse.
+L'ordre de préférence est désigné par le paramètre `q` (allant de 0 à 1). Sans `q`, la priorité se décide de gauche à droite.
+```http
+Accept-Language: da, en-gb;q=0.8, en;q=0.7
+```
+Si aucun en-tête n'est précisé, le serveur **DEVRAIT** considérer que tous les langages sont acceptables, mais servira généralement sa langue par défaut.
+
+## Accept-Ranges
+Ce champ de **réponse** permet au serveur d'indiquer qu'il supporte les requêtes partielles (demande d'un morceau de fichier en octets).
+```http
+Accept-Ranges: bytes
+```
+Si le serveur n'accepte pas ce mode, il peut spécifier `Accept-Ranges: none`. Cela indique au client qu'il ne peut pas demander seulement une partie du fichier (utile pour le "resume" de téléchargement).
+
+---
+
+# Manipulation du contenu
+
+## Content-Type / Les tables de caractères (Charset)
+
+Pour définir l'encodage utilisé dans le corps de la réponse afin que le client puisse l'afficher correctement :
+```http
+Content-Type: text/html; charset=utf-8
+```
+*Exemples courants : US-ASCII, ISO-8859-1 (Latin-1), UTF-8.*
+
+## Content-Encoding (Compression)
+
+Pour spécifier si le contenu a été compressé (pour voyager plus vite) et préciser l'algorithme utilisé :
+```http
+Content-Encoding: gzip
+```
 *Note : Le client annonce ce qu'il supporte via l'en-tête `Accept-Encoding`.*
 
-## Format d'une message HTTP
-```
-<Méthode> <URL> <Version>
-<BODY>
-```
-Exemple : `GET /index.html HTTP/1.0`
+---
 
-## Format d'une requête HTTP minimal
+# Formats des messages
+
+## Structure générale
+```text
+<Méthode> <URL> <Version>
+<En-têtes>
+(Ligne vide)
+<Corps du message (Optionnel)>
 ```
-POST /cgi/wp-admin.php HTTP/1.0
+
+## Exemple de requête minimale
+```http
+POST /cgi/admin.php HTTP/1.1
+Host: localhost
 Content-Type: application/x-www-form-urlencoded
 Content-Length: 13
+
+user=admin&pw=123
 ```
 
-## Format d'une réponse HTTP minimal
-```
-HTTP/1.0 200 OK
-Content-Lenght: 31921
+## Exemple de réponse minimale
+```http
+HTTP/1.1 200 OK
+Content-Length: 42
 Content-Type: text/html
-<!DOCTYPE html...
+
+<html><body><h1>Hello World</h1></body></html>
 ```
 
------
+---
 
-## Les methodes
-```
-GET : Demande au server des données. Ne l'utiliser que pour la récuperation de données.
-POST : Permet l'envoie de données au server permetant son changement d'état. Par exemple lors d'un envoie de formulaire.
-DELETE : Demande au server de supprimer une ressource donnée. Une quete DELETE ne doit pas contenir de corp et permet *uniquement* de supprimer des données
-```
+## Les méthodes principales
 
-## BONUS
+* **GET** : Demande une ressource au serveur. Ne doit être utilisé que pour la récupération de données sans modifier l'état du serveur.
+* **POST** : Envoie des données au serveur pour traitement (ex: formulaire). Peut modifier l'état du serveur ou créer une ressource.
+* **DELETE** : Demande au serveur de supprimer la ressource indiquée.
 
-### World Wide Web
+---
 
-Inventé par [**Tim Berners-Lee**](https://fr.wikipedia.org/wiki/Tim_Berners-Lee), ce projet avait pour but de permettre aux chercheurs du monde entier de s'échanger des informations instantanément.
-Le **30 avril 1993**, le **CERN** a placé le logiciel du World Wide Web dans le domaine public. Ce fut le véritable début du Web tel qu'on le connaît.
-[Voici un lien vers la toute première page web \!](http://info.cern.ch/hypertext/WWW/TheProject.html)
+## BONUS : Histoire du Web
+
+Inventé par [**Tim Berners-Lee**](https://fr.wikipedia.org/wiki/Tim_Berners-Lee), le Web avait pour but de permettre aux chercheurs du monde entier de s'échanger des informations instantanément. Le **30 avril 1993**, le **CERN** a placé le logiciel du World Wide Web dans le domaine public.
+[Voici un lien vers la toute première page web !](http://info.cern.ch/hypertext/WWW/TheProject.html)
