@@ -77,7 +77,7 @@ Spécifie si le contenu a été compressé et précise l'algorithme utilisé.
 Content-Encoding: gzip
 ```
 
-## Content-Type (OBLIGATOIRE si corps présent) / Charset (Parametre optionnel)
+## Content-Type (OBLIGATOIRE si corps présent) / Charset (Paramètre optionnel)
 Définit l'encodage utilisé dans le corps de la réponse et le type de média.
 ```http
 Content-Type: text/html; charset=utf-8
@@ -169,16 +169,28 @@ WWW-Authenticate: Basic realm="WallyWorld"
 
 ---
 
-# Exemples de messages
+# Exemples de messages (HTTP/1.0)
 
-## Requête la plus minimale (HTTP/1.0)
+## 1. Échange minimal
+**Requête minimale :**
 ```http
-GET / HTTP/1.0
+GET /index.html HTTP/1.0
 
 ```
-*(Note : En HTTP/1.0, aucun en-tête n'est strictement obligatoire. La ligne vide après la première ligne suffit.)*
+*(Note : En 1.0, aucun en-tête n'est requis. Seule la ligne de requête suivie d'une ligne vide suffit.)*
 
-## Requête complète (HTTP/1.0)
+**Réponse minimale :**
+```http
+HTTP/1.0 200 OK
+
+(Corps du fichier...)
+```
+*(Note : La réponse peut techniquement ne contenir que la ligne de statut, mais elle inclut généralement le corps.)*
+
+---
+
+## 2. Échange complet
+**Requête complète :**
 ```http
 POST /submit-form HTTP/1.0
 User-Agent: Mozilla/5.0
@@ -189,15 +201,16 @@ Content-Length: 17
 user=paul&age=25
 ```
 
-## Réponse complète (HTTP/1.0)
+**Réponse complète :**
 ```http
 HTTP/1.0 200 OK
 Date: Tue, 21 Apr 2026 14:00:00 GMT
 Server: MonWebServ/1.0
 Content-Type: text/html; charset=utf-8
 Content-Length: 44
+Last-Modified: Mon, 20 Apr 2026 10:00:00 GMT
 
-<html><body><h1>Succes !</h1></body></html>
+<html><body><h1>Succès !</h1></body></html>
 ```
 
 ---
